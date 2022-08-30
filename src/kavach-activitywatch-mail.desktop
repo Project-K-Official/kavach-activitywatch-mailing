@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=Usage Monitor
+Exec=python3 /usr/bin/activitywatch_mail
+Icon=/usr/share/kavach-welcome/img/kavach-welcome.png
+Terminal=false
+StartupNotify=true
