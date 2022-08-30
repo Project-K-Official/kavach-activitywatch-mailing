@@ -51,6 +51,10 @@ def mail(json):
         print("Successfully sent email")
 
 def saving_json():
+
+    configur = ConfigParser()
+    configur.read('configurations.ini')
+
     while True:
         print("Deleting old export.json")
         os.system("rm export.json")
@@ -66,14 +70,24 @@ def saving_json():
         parsing_json.plotting(data)
         print("New plot created")
         mail(data)
-        time.sleep(600)
+
+        # This script will send mail after every 1hr
+        # 600 -> 10mins
+        # 3600 -> 1hr
+        time.sleep(configur.get("AppConfig", "time_interval_for_mail"))
 
 if __name__ == "__main__":
+
+    if (os.path.exists('export.json')):
+        os.system("rm export.json")
+    if (os.path.exists('plot.png')):
+        os.system("rm plot.png")
+
     os.system("wget http://localhost:5600/api/0/export -O export.json")
     print("New export.json installation complete")
     data = parsing_json.parsing()
     parsing_json.plotting(data)
     print("New plot created")
     mail(data)
-    time.sleep(600)
+    time.sleep(configur.get("AppConfig", "time_interval_for_mail"))
     saving_json()
