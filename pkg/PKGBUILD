@@ -1,0 +1,32 @@
+# Maintainer : Team Kavach <https://github.com/Project-K-Official/>
+
+pkgname=kavach-activitywatch-mailing
+pkgdesc='Reporting and Mailing'
+pkgver=1
+pkgrel=1
+arch=('any')
+url="https://github.com/Project-K-Official/kavach-activitywatch-mailing"
+license=('MIT')
+makedepends=('git')
+depends=('python3')
+source=("git+$url.git")
+sha256sums=('SKIP')
+
+package(){
+    install -d ${pkgdir}/usr/share/kavach-activitywatch-mailing
+    install -d ${pkgdir}/usr/share/applications
+    install -d ${pkgdir}/usr/bin
+    install -d ${pkgdir}/etc/skel/.config/autostart
+
+    cp -r ${srcdir}/kavach-activitywatch-mailing/src/generate_conf.py "${pkgdir}/usr/bin/generate_conf.py"
+    chmod +x "${pkgdir}/usr/bin/generate_conf.py"
+
+    cp -r ${srcdir}/kavach-activitywatch-mailing/src/parsing_json.py "${pkgdir}/usr/bin/parsing_json.py"
+    chmod +x "${pkgdir}/usr/bin/parsing_json.py"
+
+    cp -r ${srcdir}/kavach-activitywatch-mailing/src/activitywatch_mail.py "${pkgdir}/usr/bin/activitywatch_mail"
+    chmod +x "${pkgdir}/usr/bin/activitywatch_mail"
+
+    cp -r ${srcdir}/kavach-activitywatch-mailing/src/kavach-activitywatch-mail.desktop "${pkgdir}/etc/skel/.config/autostart/kavach-activitywatch-mail.desktop"
+    chmod +x "${pkgdir}/etc/skel/.config/autostart/kavach-activitywatch-mail.desktop"
+}
